@@ -1,0 +1,47 @@
+// =====================================================================
+// OBJECTIVE 3 - SMOKING PATTERNS & HEALTH INDICATORS (Power BI / DAX)
+// Table name assumed: Smoking_Health_Analysis
+// Requires the calculated columns from 02_Objective2_Calculated_Columns.dax
+// =====================================================================
+
+// ---- 3.1 Average cigarettes per day by smoking status ----
+// Visual: Clustered column. Axis = Smoking_Status, Values = measure below.
+Avg Cigarettes Per Day =
+AVERAGE ( Smoking_Health_Analysis[Cigarettes_Per_Day] )
+// Result: Current 17.11 | Former 0.00 | Never 0.00
+// Tip: Former/Never smokers are recorded as 0 cigarettes/day. For the
+// "among active smokers only" average, use the measure below.
+Avg Cigarettes Per Day (Current Smokers) =
+CALCULATE (
+    AVERAGE ( Smoking_Health_Analysis[Cigarettes_Per_Day] ),
+    Smoking_Health_Analysis[Smoking_Status] = "Current Smoker"
+)
+
+// ---- 3.2 Organ-wise health condition distribution ----
+// Visual: 100% stacked bar. Axis = Diagnosed_Organ, Legend = Health_Condition,
+// Values = Patient Count.
+Patient Count =
+DISTINCTCOUNT ( Smoking_Health_Analysis[Patient_ID] )
+
+Condition % Within Organ =
+DIVIDE (
+    [Patient Count],
+    CALCULATE (
+        [Patient Count],
+        ALLEXCEPT ( Smoking_Health_Analysis, Smoking_Health_Analysis[Diagnosed_Organ] )
+    )
+)
+
+// ---- 3.3 Smoking status distribution ----
+// Visual: Donut. Legend = Smoking_Status, Values = Patient Count / % below.
+Smoking Status %  =
+DIVIDE (
+    [Patient Count],
+    CALCULATE ( [Patient Count], ALL ( Smoking_Health_Analysis[Smoking_Status] ) )
+)
+
+// ---- 3.4 Average cholesterol by BP risk category ----
+// Visual: Clustered column. Axis = BP Risk Category (sort by BP Risk Sort).
+Avg Cholesterol =
+AVERAGE ( Smoking_Health_Analysis[Total_Cholesterol_mg_dL] )
+// Result: Lower Range 195.35 | Elevated 197.18 | High 197.87 mg/dL

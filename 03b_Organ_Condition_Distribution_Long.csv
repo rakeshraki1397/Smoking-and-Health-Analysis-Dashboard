@@ -1,0 +1,21 @@
+Diagnosed_Organ,Health_Condition,Patients,Pct_within_Organ
+Heart,No Diagnosed Condition,979,44.6
+Heart,Coronary Artery Disease,530,24.1
+Heart,Arrhythmia,403,18.3
+Heart,Heart Failure,285,13.0
+Kidneys,No Diagnosed Condition,415,41.2
+Kidneys,Reduced Kidney Function,252,25.0
+Kidneys,Chronic Kidney Disease,199,19.8
+Kidneys,Kidney Stones,141,14.0
+Liver,No Diagnosed Condition,462,37.5
+Liver,Fatty Liver,409,33.2
+Liver,Liver Inflammation,234,19.0
+Liver,Reduced Liver Function,126,10.2
+Lungs,No Diagnosed Condition,836,29.9
+Lungs,COPD,717,25.7
+Lungs,Reduced Lung Function,689,24.7
+Lungs,Asthma,550,19.7
+No Recorded Organ Condition,No Diagnosed Condition,1536,55.4
+No Recorded Organ Condition,Hypertension,494,17.8
+No Recorded Organ Condition,High Cholesterol,476,17.2
+No Recorded Organ Condition,Type 2 Diabetes,267,9.6

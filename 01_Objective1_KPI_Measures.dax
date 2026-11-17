@@ -1,0 +1,40 @@
+// =====================================================================
+// OBJECTIVE 1 - KPI MEASURES (Power BI / DAX)
+// Table name assumed: Smoking_Health_Analysis
+// Create these in Modeling > New measure. Use them in four Card visuals.
+// =====================================================================
+
+Total Patients =
+DISTINCTCOUNT ( Smoking_Health_Analysis[Patient_ID] )
+// Expected result on the supplied data: 10,000
+
+Total Current Smokers =
+CALCULATE (
+    DISTINCTCOUNT ( Smoking_Health_Analysis[Patient_ID] ),
+    Smoking_Health_Analysis[Smoking_Status] = "Current Smoker"
+)
+// Expected: 3,015
+
+Patients With Recorded Organ Category =
+CALCULATE (
+    DISTINCTCOUNT ( Smoking_Health_Analysis[Patient_ID] ),
+    Smoking_Health_Analysis[Diagnosed_Organ] <> "No Recorded Organ Condition"
+)
+// Expected: 7,227
+
+Patients With Recorded Health Condition =
+CALCULATE (
+    DISTINCTCOUNT ( Smoking_Health_Analysis[Patient_ID] ),
+    Smoking_Health_Analysis[Health_Condition] <> "No Diagnosed Condition"
+)
+// Expected: 5,772
+
+// ---- Optional: share-of-total helpers for the card subtitles ----
+Current Smokers % =
+DIVIDE ( [Total Current Smokers], [Total Patients] )
+
+Recorded Organ % =
+DIVIDE ( [Patients With Recorded Organ Category], [Total Patients] )
+
+Recorded Condition % =
+DIVIDE ( [Patients With Recorded Health Condition], [Total Patients] )

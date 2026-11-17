@@ -1,0 +1,71 @@
+// =====================================================================
+// OBJECTIVE 2 - CALCULATED COLUMNS (Power BI / DAX)
+// Table name assumed: Smoking_Health_Analysis
+// Create in Table tools > New column. Then set the "Sort by column"
+// on each text column to its matching *_Sort column so axes order correctly.
+// =====================================================================
+
+// ---------- 1. AGE GROUP ----------
+Age Group =
+SWITCH (
+    TRUE (),
+    Smoking_Health_Analysis[Age] < 30, "18-29",
+    Smoking_Health_Analysis[Age] < 45, "30-44",
+    Smoking_Health_Analysis[Age] < 60, "45-59",
+    "60+"
+)
+
+Age Group Sort =
+SWITCH (
+    TRUE (),
+    Smoking_Health_Analysis[Age] < 30, 1,
+    Smoking_Health_Analysis[Age] < 45, 2,
+    Smoking_Health_Analysis[Age] < 60, 3,
+    4
+)
+
+// ---------- 2. BP RISK CATEGORY ----------
+// Simplified screening buckets (not a clinical diagnosis):
+//   High        : Systolic >= 140 OR Diastolic >= 90
+//   Elevated    : Systolic 120-139 OR Diastolic 80-89
+//   Lower Range : Systolic < 120 AND Diastolic < 80
+BP Risk Category =
+SWITCH (
+    TRUE (),
+    Smoking_Health_Analysis[Systolic_BP_mmHg] >= 140
+        || Smoking_Health_Analysis[Diastolic_BP_mmHg] >= 90, "High",
+    Smoking_Health_Analysis[Systolic_BP_mmHg] >= 120
+        || Smoking_Health_Analysis[Diastolic_BP_mmHg] >= 80, "Elevated",
+    "Lower Range"
+)
+
+BP Risk Sort =
+SWITCH (
+    TRUE (),
+    Smoking_Health_Analysis[Systolic_BP_mmHg] >= 140
+        || Smoking_Health_Analysis[Diastolic_BP_mmHg] >= 90, 3,
+    Smoking_Health_Analysis[Systolic_BP_mmHg] >= 120
+        || Smoking_Health_Analysis[Diastolic_BP_mmHg] >= 80, 2,
+    1
+)
+
+// ---------- 3. SMOKING EXPOSURE LEVEL (needed for Objective 4.2) ----------
+// Based on Years_Smoking, because Former Smokers have Cigarettes_Per_Day = 0,
+// which would make pack-years read as zero for them.
+Smoking Exposure Level =
+SWITCH (
+    TRUE (),
+    Smoking_Health_Analysis[Years_Smoking] = 0, "No Exposure",
+    Smoking_Health_Analysis[Years_Smoking] <= 10, "Low (1-10 yrs)",
+    Smoking_Health_Analysis[Years_Smoking] <= 25, "Moderate (11-25 yrs)",
+    "High (26+ yrs)"
+)
+
+Smoking Exposure Sort =
+SWITCH (
+    TRUE (),
+    Smoking_Health_Analysis[Years_Smoking] = 0, 1,
+    Smoking_Health_Analysis[Years_Smoking] <= 10, 2,
+    Smoking_Health_Analysis[Years_Smoking] <= 25, 3,
+    4
+)

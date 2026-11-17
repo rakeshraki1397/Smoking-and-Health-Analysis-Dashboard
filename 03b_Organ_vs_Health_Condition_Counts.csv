@@ -1,0 +1,6 @@
+Diagnosed_Organ,Arrhythmia,Asthma,COPD,Chronic Kidney Disease,Coronary Artery Disease,Fatty Liver,Heart Failure,High Cholesterol,Hypertension,Kidney Stones,Liver Inflammation,No Diagnosed Condition,Reduced Kidney Function,Reduced Liver Function,Reduced Lung Function,Type 2 Diabetes,Total
+Heart,403,0,0,0,530,0,285,0,0,0,0,979,0,0,0,0,2197
+Kidneys,0,0,0,199,0,0,0,0,0,141,0,415,252,0,0,0,1007
+Liver,0,0,0,0,0,409,0,0,0,0,234,462,0,126,0,0,1231
+Lungs,0,550,717,0,0,0,0,0,0,0,0,836,0,0,689,0,2792
+No Recorded Organ Condition,0,0,0,0,0,0,0,476,494,0,0,1536,0,0,0,267,2773
